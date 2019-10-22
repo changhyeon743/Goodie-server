@@ -5,7 +5,7 @@ SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
 
-MAX_COMMENTS = 20
+MAX_COMMENTS = 200
 
 
 import csv
@@ -175,11 +175,17 @@ if __name__ == '__main__':
         for i in final_videos:
             info = get_video(service,part='snippet,player,statistics',id=i)['items'][0]
             snippet = info["snippet"]
+
+            thumbnail = snippet["thumbnails"];
+            if "standard" not in thumbnail.keys():
+                thumbnail = "https://via.placeholder.com/480x360.png?text=No%20Image"
+            else:
+                thumbnail = thumbnail["standard"]["url"]
             Video(title=snippet["localized"]["title"],
             publisher=snippet["channelTitle"],
             publishedDate=snippet["publishedAt"],
             youtubeId=info["id"],
-            thumbnail=snippet["thumbnails"]["standard"]["url"],
+            thumbnail=thumbnail,
             tags=','.join(snippet["tags"] or ""),
             viewCount=info["statistics"]["viewCount"],
             likeCount=info["statistics"]["likeCount"],

@@ -15,16 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from rest_framework import routers
-from rest_framework_swagger.views import get_swagger_view
-
-import parsed_data.api as api
-
-router = routers.DefaultRouter()
-router.register('videos', api.VideoViewSet)
+from parsed_data import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/doc', get_swagger_view(title='GOODIE')),
-    path('api/v1/', include((router.urls, 'video'), namespace='api')),
+    path('api/', include('parsed_data.urls')),
 ]

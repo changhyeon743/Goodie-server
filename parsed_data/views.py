@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core import serializers
 from django.http import HttpResponse
 from django.core import serializers
-
+import json
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -42,9 +42,9 @@ class VideoViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def get_random(self,request):
         videos = Video.objects.order_by('?')
-
+        dump = json.dumps(videos)
         
-        return videos
+        return HttpResponse(dump, content_type='application/json')
 # def videos(request):
 #     videos = Video.objects.all().order_by('-createdDate')[:5]
 #     video_list = serializers.serialize('json', videos)

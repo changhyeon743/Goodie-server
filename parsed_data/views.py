@@ -40,7 +40,7 @@ class VideoViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def get_random(self,request):
-        videos = Video.objects.all()
+        videos = list(Video.objects.order_by('?'))
         
         return Response(videos)
 # def videos(request):

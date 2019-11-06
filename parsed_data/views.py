@@ -41,8 +41,23 @@ class VideoViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def get_random(self,request):
-        videos = Video.objects.order_by('?').values()
+        videos = Video.objects.order_by('?').values()[:10]
         return Response(videos)
+
+    @action(detail=False)
+    def sort_like(self,request):
+        videos = Video.objects.order_by('likeCount').values()[:10]
+        return Response(videos)
+
+    @action(detail=False)
+    def sort_view(self,request):
+        videos = Video.objects.order_by('viewCount').values()[:10]
+        return Response(videos)
+    @action(detail=False)
+    def sort_comment(self,request):
+        videos = Video.objects.order_by('commentCount').values()[:10]
+        return Response(videos)
+    
 # def videos(request):
 #     videos = Video.objects.all().order_by('-createdDate')[:5]
 #     video_list = serializers.serialize('json', videos)

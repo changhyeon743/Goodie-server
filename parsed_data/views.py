@@ -40,7 +40,7 @@ class VideoViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def get_random(self,request):
-        videos = list(Video.objects.all())
+        videos = Video.objects.all()
         from random import shuffle
         
         return Response(shuffle(videos))

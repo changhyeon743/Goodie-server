@@ -37,6 +37,14 @@ class VideoViewSet(viewsets.ModelViewSet):
         res = sorted(Counter(tags_list).items(), key=(lambda x: x[1]), reverse = True)[:10]
         
         return Response(dict(res))
+
+    @action(detail=False)
+    def get_random(self):
+        videos = list(Video.objects.all())
+        from random import shuffle
+        shuffle(videos)
+
+        return Response(dict(res))
 # def videos(request):
 #     videos = Video.objects.all().order_by('-createdDate')[:5]
 #     video_list = serializers.serialize('json', videos)

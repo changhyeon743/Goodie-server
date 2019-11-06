@@ -43,7 +43,7 @@ class VideoViewSet(viewsets.ModelViewSet):
         videos = list(Video.objects.all())
         from random import shuffle
         
-        return Response(dict(shuffle(videos)))
+        return Response(shuffle(videos))
 # def videos(request):
 #     videos = Video.objects.all().order_by('-createdDate')[:5]
 #     video_list = serializers.serialize('json', videos)

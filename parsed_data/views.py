@@ -42,9 +42,7 @@ class VideoViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def get_random(self,request):
         videos = Video.objects.order_by('?').values()
-        dump = json.dumps(videos)
-        
-        return HttpResponse(dump, content_type='application/json')
+        return Response(videos)
 # def videos(request):
 #     videos = Video.objects.all().order_by('-createdDate')[:5]
 #     video_list = serializers.serialize('json', videos)
